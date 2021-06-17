@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bookshop2.demo.dao.SaleDao">
+    <select id="querySale" resultType="com.bookshop2.demo.entity.Sale">
+        select orderno,sno,bno,mno,saletime from sale
+    </select>
+    <select id="queryById" resultType="com.bookshop2.demo.entity.Sale">
+        select orderno,sno,bno,mno,saletime from sale
+        where orderno=#{id}
+    </select>
+    <insert id="insertSale" useGeneratedKeys="true" keyProperty="orderno" keyColumn="orderno"
+            parameterType="com.bookshop2.demo.entity.Sale">
+        insert into sale(bno,mno,sno,saletime)
+            value (#{bno},#{mno},#{sno},#{saletime})
+    </insert>
+    <update id="updateSaleById" parameterType="com.bookshop2.demo.entity.Sale">
+        update sale
+        <set>
+            <if test="bno!=null">bno=#{bno},</if>
+            <if test="mno!=null">mno=#{mno},</if>
+            <if test="saletime!=null">saletime=#{saletime},</if>
+            <if test="sno!=null">sno=#{sno},</if>
+        </set>
+        where orderno=#{orderno}
+    </update>
+    <delete id="deleteSaleById">
+        delete from sale
+        where orderno=#{id}
+    </delete>
+</mapper>

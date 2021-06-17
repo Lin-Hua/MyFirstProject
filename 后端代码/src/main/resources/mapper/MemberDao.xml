@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bookshop2.demo.dao.MemberDao">
+    <select id="queryMember" resultType="com.bookshop2.demo.entity.Member">
+        select mno,mname,contact from member
+    </select>
+    <select id="queryById" resultType="com.bookshop2.demo.entity.Member">
+        select mno,mname,contact from member
+        where mno=#{id}
+    </select>
+    <insert id="insertMember" useGeneratedKeys="true" keyProperty="mno" keyColumn="mno"
+            parameterType="com.bookshop2.demo.entity.Member">
+        insert into member(mname,contact)
+            value (#{mname},#{contact})
+    </insert>
+    <update id="updateMemberById" parameterType="com.bookshop2.demo.entity.Member">
+        update member
+        <set>
+            <if test="mname!=null">mname=#{mname},</if>
+            <if test="contact!=null">contact=#{contact},</if>
+        </set>
+        where mno=#{mno}
+    </update>
+    <delete id="deleteMemberById">
+        delete from member
+        where mno=#{id}
+    </delete>
+</mapper>

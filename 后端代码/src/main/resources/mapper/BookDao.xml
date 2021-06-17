@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bookshop2.demo.dao.BookDao">
+    <select id="queryBooks" resultType="com.bookshop2.demo.entity.Books">
+        select bno,bname,types,buyprice,sellprice from books
+    </select>
+    <select id="queryById" resultType="com.bookshop2.demo.entity.Books">
+        select bno,bname,types,buyprice,sellprice from books
+        where bno=#{id}
+    </select>
+    <insert id="insertBooks" useGeneratedKeys="true" keyProperty="bno" keyColumn="bno"
+            parameterType="com.bookshop2.demo.entity.Books">
+        insert into books(bname,types,buyprice,sellprice)
+        value (#{bname},#{type},#{buyprice},#{sellprice})
+    </insert>
+    <update id="updateBooksById" parameterType="com.bookshop2.demo.entity.Books">
+        update books
+        <set>
+            <if test="bname!=null">bname=#{bname},</if>
+            <if test="types!=null">types=#{types},</if>
+            <if test="buyprice!=null">buyprice=#{buyprice},</if>
+            <if test="sellprice!=null">sellprice=#{sellprice},</if>
+        </set>
+        where bno=#{bno}
+    </update>
+    <delete id="deleteBooksById">
+        delete from books
+        where bno=#{id}
+    </delete>
+</mapper>
